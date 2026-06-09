@@ -1,0 +1,938 @@
+html {
+    scroll-behavior: auto !important; /* Deixa o JavaScript controlar a fluidez frame por frame */
+}
+
+body {
+    margin: 0;
+    padding-top: 90px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fica atrás de absolutamente tudo */
+
+
+    /* Os gradientes vêm primeiro (ficam por cima) e a imagem por último */
+    background: 
+        radial-gradient(ellipse 100% 100% at 50% 55%, rgba(0, 0, 0, 0.564) 100vh, transparent 100%),
+        url(img/backgroundbody.png);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    filter: blur(1.3px);
+}
+
+/* ============================================================
+   2. IMAGEM DO PERSONAL
+   ============================================================ */
+.imgjv img {
+    position: absolute;
+    top: -3%;
+    left: 30%;
+    width: 55%;
+    height: auto;    
+}
+
+/* ============================================================
+   3. NAVBAR
+   ============================================================ */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    background: rgba(0, 44, 154, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 1px 1px 10px #000000;
+    animation: aparecer 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.logo img {
+    width: 60px;
+    height: auto;
+    filter: drop-shadow(0px 0px 10px #00c8ff94);
+    transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.logo-texto {
+    color: #ffffff;
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.logo-texto .destaque {
+    color: #13c4ff;
+}
+
+.nav ul {
+    display: flex;
+    gap: 28px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav a {
+    position: relative;
+    display: inline-block;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav a:hover {
+    color: #00ccff;
+    text-shadow: 0px 0px 30px #ffffff83;
+    transform: scale(1.05) translateY(-2px);
+}
+
+
+.nav a:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.nav a:active::after {
+    width: 0%;
+}
+
+.menu {
+    display: none;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ============================================================
+   4. SEÇÃO HOME (.pag1) & BOTÃO (.btn-cta)
+   ============================================================ */
+.pag1 {
+    display: flex;
+    flex-direction: column;   
+    justify-content: center;  
+    align-items: center;      
+    text-align: center;       
+    min-height: calc(80vh - 90px); 
+    padding: 0 20px;      
+    box-sizing: border-box;
+}
+
+.homeT {
+    color: white;
+    font-family: "Anton", Arial, Helvetica, sans-serif;
+    font-size: 6rem;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    text-shadow: -5px 10px 30px #000000;
+    margin-bottom: 5px;
+}
+
+.btn-cta {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 20px 60px;
+    overflow: hidden;
+    text-decoration: none;
+    
+    /* Tipografia */
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    
+    /* Configuração do Estado DEPOIS do Hover (Borda Ativa e Fundo Transparente) */
+    border-radius: 50px; 
+    background: rgba(0, 0, 0, 0); 
+    border: 2px solid #0088ff;
+    box-shadow: 0 6px 25px rgba(0, 110, 255, 0);
+    
+    /* Suaviza o retorno da animação quando tira o mouse */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                box-shadow 0.8s ease-in-out,
+                border-color 0.8s ease-in-out;
+}
+
+/* Camada que segura o gradiente original ANTES do Hover */
+.btn-cta::before {
+    content: '';
+    position: absolute;
+    top: -4px; 
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    z-index: -1;
+    background: linear-gradient(135deg, #003cff, #004cff, #2400c4 80%);
+    box-shadow: 0 4px 15px rgba(0, 162, 255, 0.563);
+    border-radius: 50px;
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+/* Comportamento Fluido de Hover */
+.btn-cta:hover {
+    transform: scale(1.01);
+    filter: brightness(1.2);
+    box-shadow: 0 0px 10px rgba(0, 110, 255, 0.8); 
+    border-color: #00c8ff;
+}
+
+/* Faz o preenchimento sumir suavemente gerando a mistura remanescente */
+.btn-cta:hover::before {
+    opacity: 0;
+    box-shadow: 0 4px 15px rgba(0, 162, 255, 0);
+}
+
+.btn-cta:active {
+    cursor: grabbing;
+    transform: scale(1);
+}
+
+/* ============================================================
+   5. DIVISION PAGE 1 - 2 (.divpag1)
+   ============================================================ */
+.divpag1 {
+    position: absolute;
+    bottom: -150px; 
+    left: 0;
+    z-index: -10;
+    width: 100%;
+    height: 60px; 
+    display: flex;
+    align-items: center;
+    padding: 0 50px; 
+    box-sizing: border-box;
+    background: rgba(0, 44, 154, 0.619);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(3px);
+    z-index: -1;
+}
+
+    
+/* ============================================================
+   6. SEÇÃO SERVIÇOS 
+   ============================================================ */
+.services {
+    padding: 170px 20px;
+    text-align: center;
+    background: transparent;
+}
+
+/* Estilo do Card em Destaque (Personal Presencial) */
+.service-card.featured1 {
+    display: inline-block;
+    width: 100%;
+    max-width: 360px;
+    background: rgba(10, 20, 80, 0.45);
+    border: 2px solid #ffffff;
+    border-radius: 16px;
+    padding: 30px 30px 40px 30px;
+    margin: 15px auto;
+    margin-left: 100px;
+    margin-right: 100px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 200, 255, 0.1);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
+}
+
+.service-card.featured2 {
+    display: inline-block;
+    width: 100%;
+    max-width: 360px;
+    background: rgba(10, 20, 80, 0.45);
+    border: 2px solid #ffffff;
+    border-radius: 16px;
+    padding: 30px 30px 40px 30px;
+    margin: 15px auto;
+    margin-left: 100px;
+    margin-right: 100px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 200, 255, 0.1);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
+}
+
+.service-card.featured1:hover {
+
+    transform: scale(1.07) translateX(57px);
+    box-shadow: 0 0 0px rgba(183, 239, 255, 0.26), inset 0 0 15px rgba(0, 200, 255, 0.1);
+    border-color: #0044ff;
+}
+
+.service-card.featured2:hover {
+
+    transform: scale(1.07) translateX(-57px);
+    box-shadow: 0 0 0px rgba(183, 239, 255, 0.26), inset 0 0 15px rgba(0, 200, 255, 0.1);
+    border-color: #0044ff;
+}
+
+/* Elementos internos do Card */
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: -20px;
+}
+
+.card-title {
+    color: #ffffff;
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.card-description {
+    color: #cbd5e1;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Botão "Contratar VIP" */
+.card-btn.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    color: #ffffff;
+    background: linear-gradient(150deg, #003cff, #00bfff);
+    border: none;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.card-btn.btn-primary:hover {
+    filter: brightness(1);
+    box-shadow: 0 2px 18px rgba(255, 255, 255, 0.412);
+    transform: scaleY(1.01);
+}
+
+/* ============================================================
+   6.1 SEÇÃO RESULTADOS (CASES DE SUCESSO - TOTALMENTE CORRIGIDO)
+   ============================================================ */
+.results-section {
+    padding: 60px 20px;
+    text-align: center;
+    background: transparent;
+    position: relative;
+}
+
+.results-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #13c4ff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.results-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px; /* Removido o valor negativo que esmagava o topo */
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Limita a área visível a apenas UM slide por vez */
+.results-container-wrapper {
+    max-width: 800px; 
+    margin: 0 auto;
+    position: relative;
+    min-height: 340px; /* Mantém a estabilidade de altura */
+}
+
+.results-grid {
+    position: relative;
+    width: 100%;
+}
+
+/* ESTILO DAS PÁGINAS DE SLIDE */
+.results-page {
+    display: none; /* Esconde por padrão */
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* CORREÇÃO CRÍTICA: Garante que apenas a página ativa ocupe espaço e apareça */
+.results-page.active {
+    display: flex !important; 
+    opacity: 1;
+}
+
+/* Moldura de cada imagem de antes e depois */
+.result-card {
+    flex: 1;
+    min-width: 140px;
+    max-width: 280px;
+    
+    /* ALTERAÇÃO CRÍTICA AQUI: */
+    height: 380px;            /* Define uma altura fixa excelente para fotos de antes/depois */
+    display: flex;
+    justify-content: center;
+    align-items: center;      /* Centraliza a imagem caso ela sobre espaço */
+    
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
+}
+
+.result-card img {
+    width: 100%;
+    height: 100%;             /* Obriga a imagem a respeitar os 380px do card */
+    
+    /* MUDANÇA IMPORTANTE: */
+    object-fit: cover;        /* Preenche o card elegantemente */
+    object-position: center top; /* Foca do centro para o topo (assim não corta a cabeça de ninguém) */
+    
+    display: block;
+}
+
+.result-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain; /* Preenche o card elegantemente sem distorcer */
+}
+
+.result-card:hover {
+    transform: translateY(-8px);
+    border-color: #13c4ff;
+    box-shadow: 0 15px 30px rgba(19, 196, 255, 0.3);
+}
+
+/* BOLINHAS DE PAGINAÇÃO */
+.results-dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px; /* Empurra as bolinhas para baixo dos cards de forma organizada */
+    position: relative;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #13c4ff; /* Troca para a cor de destaque do seu tema */
+    transform: scale(1.3);
+    box-shadow: 0 0 12px #13c4ff;
+}
+
+.dot:hover {
+    background: #ffffff;
+}
+
+
+/* ============================================================
+   7 SEÇÃO SOBRE
+   ============================================================ */
+.about-section {
+    padding: 120px 5%;
+    position: relative;
+    background: 
+        linear-gradient(135deg, rgba(3, 8, 30, 0.95) 0%, rgba(10, 20, 80, 0.85) 250%),
+        url(img/fundo-sobre.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffffff;
+    border-top: 2px solid rgba(0, 199, 255, 0.2);
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin-top: px;
+    gap: 50px;
+}
+
+/* LADO ESQUERDO: TEXTO */
+.about-text-content {
+    flex: 1;
+    text-align: left;
+}
+
+.about-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.about-title .destaque-sobre {
+    color: #13c4ff;
+    text-shadow: 0px 0px 15px rgba(19, 196, 255, 0.4);
+}
+
+.about-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin-bottom: 25px;
+    max-width: 90%;
+}
+
+/* BADGES DE INFO */
+.about-badges-container {
+    display: flex; 
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(10, 20, 80, 0.4);
+    border: 1px solid rgba(0, 199, 255, 0.3);
+    border-radius: 50px;
+    padding: 12px 25px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+
+.badge-icon {
+    font-size: 1.2rem;
+}
+
+.badge-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #e2e8f0;
+}
+
+/* LADO DIREITO: ÁREA DA IMAGEM E BOXSHADOW SOLICITADA */
+.about-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.about-image-box {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 1 / 1.2;
+    background: rgba(10, 20, 80, 0.3);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    box-shadow: 0 0 100px rgba(19, 196, 255, 0.25), inset 0 0 20px rgba(19, 196, 255, 0.1);
+}
+
+.about-image-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(circle, rgba(19, 196, 255, 0.15) 0%, rgba(19, 196, 255, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.about-image {
+    width: auto;
+    height: 110%;
+    object-fit: contain;
+    position: absolute;
+    border-radius: 30px;
+    bottom: 0;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.6));
+    animation: floatingSobre 4s ease-in-out infinite;
+}
+
+@keyframes floatingSobre {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ============================================================
+   8. FOOTER / ÁREA DE CONTATOS
+   ============================================================ */
+.site-footer {
+    background: #03081e;
+    padding: 60px 5% 30px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.footer-brand {
+    flex: 1;
+}
+
+.footer-logo {
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.footer-logo .destaque {
+    color: #13c4ff;
+}
+
+.footer-slogan {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    max-width: 320px;
+    line-height: 1.6;
+}
+
+.footer-socials {
+    text-align: left;
+}
+
+.socials-title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.socials-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.social-link i {
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.social-link.insta:hover {
+    color: #e1306c;
+    text-shadow: 0 0 10px rgba(225, 48, 108, 0.5);
+    transform: translateX(5px);
+}
+
+.social-link.tiktok:hover {
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    transform: translateX(5px);
+}
+
+.social-link.whats:hover {
+    color: #25d366;
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: #64748b;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   9. BOTÃO VOLTAR AO TOPO (SEMPRE VISÍVEL)
+   ============================================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 44, 154, 0.8);
+    color: #ffffff;
+    border: 1px solid rgba(19, 196, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 9999;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Efeito de Hover (passar o mouse) */
+.back-to-top:hover {
+    background: #13c4ff;
+    color: #03081e;
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px #13c4ff;
+    border-color: #ffffff;
+}
+
+/* ============================================================
+   10. RESPONSIVIDADE COMPLETA (CELULAR & TABLET)
+   ============================================================ */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    /* Ajuste da imagem de fundo do personal na home */
+    .imgjv img {
+        display: none; /* Ocultado no mobile para não quebrar texto, ou pode reduzir: */
+        /* left: 10%; width: 80%; top: 10%; opacity: 0.3; */
+    }
+
+    /* Navbar Mobile Menu Hambúrguer */
+    .menu {
+        display: block; /* Mostra o ícone ☰ */
+    }
+
+    .navbar {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(3, 8, 30, 0.98);
+        backdrop-filter: blur(15px);
+        transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 999;
+    }
+
+    /* Classe JavaScript para abrir o menu */
+    .navbar.active {
+        left: 0;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 40px;
+        font-size: 22px;
+    }
+
+    /* Seção Home */
+
+    .divpag1{
+        margin-bottom: 100px;
+    }
+    .homeT {
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+        line-height: 1.2;
+    }
+
+    .btn-cta {
+        margin-top: 50px;
+        padding: 15px 40px;
+        font-size: 16px;
+    }
+
+    /* Seção Serviços (Cards empilhados) */
+    .services {
+        padding: 80px 20px;
+    }
+
+    .service-card.featured1, 
+    .service-card.featured2 {
+        margin: 20px auto;
+        max-width: 100%;
+    }
+
+    .service-card.featured1:hover,
+    .service-card.featured2:hover {
+        transform: scale(1.02); /* Remove o puxão lateral do hover desktop */
+    }
+
+    .card-title {
+        font-size: 2rem;
+    }
+
+    /* Seção Resultados */
+    .results-title {
+        font-size: 2.5rem;
+    }
+
+    .results-page {
+        gap: 15px;
+    }
+
+    .result-card {
+        height: 320px; /* Reduz ligeiramente para telas menores */
+    }
+
+    /* Seção Sobre */
+    .about-section {
+        padding: 60px 20px;
+    }
+
+    .about-container {
+        flex-direction: column-reverse; /* Imagem fica no topo ou embaixo do texto */
+        gap: 40px;
+    }
+
+    .about-title {
+        font-size: 2.3rem;
+        text-align: center;
+    }
+
+    .about-description {
+        max-width: 100%;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .about-badges-container {
+        justify-content: center;
+    }
+
+    .info-badge {
+        padding: 10px 20px;
+    }
+
+    .about-image-wrapper {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .about-image-box {
+        max-width: 300px;
+    }
+
+    /* Rodapé (Footer) */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-brand, .footer-socials {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-slogan {
+        margin: 0 auto;
+    }
+
+    .social-link {
+        justify-content: center;
+    }
+}
+

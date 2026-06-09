@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Personal Trainer</title>
+</head>
+
+<body>
+    <div class="imgjv">
+        <img src="#" alt="imagem do personal">
+    </div>
+    
+    <div class="shadowbox"></div>
+
+    <header class="nav">
+        <div class="logo">
+            <img src="img/logojvp.png" alt="logo.jvp">
+            <span class="logo-texto">João <span class="destaque">Personal</span></span>
+        </div>
+
+        <div class="menu" id="menu-toggle">
+            ☰
+        </div>
+
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#servicos">SERVIÇOS</a></li>
+                <li><a href="#sobre">SOBRE</a></li>
+                <li><a href="#contato">CONTATO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="home-section" style="position: relative;">
+        
+        <div class="pag1">
+            <h2 class="homeT">CUIDAR DO CORPO É <br> CUIDAR DA SAÚDE</h2>
+            <a href="https://client.mfitpersonal.com.br/out/signup-link/MTg2NjMz" target="_blank" class="btn-cta">VEM PRO TIME</a>
+        </div>
+
+        <div class="divpag1"></div>
+
+    </section> 
+
+    <section id="servicos" class="services">
+        <div class="service-card featured1">
+            <div class="card-icon">🏢</div>
+            <h3 class="card-title">PERSONAL<br>PRESENCIAL</h3>
+            <p class="card-description">
+               Acompanhamento presencial e exclusivo. Treinos individuais e sob medida para a sua rotina, com foco total na execução correta, segurança e máxima eficiência. O caminho ideal para a sua saúde, emagrecimento ou hipertrofia, com quem te orienta lado a lado. 
+               </p>
+            <a href="#" class="card-btn btn-primary">EU QUERO!</a>
+        </div>
+
+        <div class="service-card featured2">
+            <div class="card-icon">📱</div>
+            <h3 class="card-title">CONSULTORIA <br> ONLINE</h3>
+            <p class="card-description">
+                Consultoria completa por apenas <br>R$ 50 mensais. Treinos individuais montados para sua rotina com foco total na qualidade do movimento, segurança e eficiência. O caminho certo para sua saúde, emagrecimento ou hipertrofia. Disciplina hoje, resultados sempre!
+            </p>
+            <a href="#" class="card-btn btn-primary">EU QUERO!</a>
+        </div>
+
+        <div class="results-section">
+            <p class="results-subtitle">CASES DE SUCESSO</p>
+            <h2 class="results-title">RESULTADOS</h2>
+
+            <div class="results-container-wrapper">
+                <div class="results-grid" id="results-slider">
+                    
+                    <div class="results-page active">
+                        <div class="result-card">
+                            <img src="img/3.png" alt="Resultado Aluno 1">
+                        </div>
+                        <div class="result-card">
+                            <img src="img/1.png" alt="Resultado Aluno 2">
+                        </div>
+                    </div>
+
+                    <div class="results-page">
+                        <div class="result-card">
+                            <img src="img/6.png" alt="Resultado Aluno 3">
+                        </div>
+                        <div class="result-card">
+                            <img src="img/2.png" alt="Resultado Aluno 4">
+                        </div>
+                    </div>
+
+                    <div class="results-page">
+                        <div class="result-card">
+                            <img src="img/4.png" alt="Resultado Aluno 5">
+                        </div>
+                        <div class="result-card">
+                            <img src="img/5.png" alt="Resultado Aluno 6">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="results-dots">
+                <span class="dot active" onclick="mudarSlide(0)"></span>
+                <span class="dot" onclick="mudarSlide(1)"></span> 
+                <span class="dot" onclick="mudarSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="about-section">
+        <div class="about-container">
+            <div class="about-text-content">
+                <h2 class="about-title">QUEM É <span class="destaque-sobre">JOÃO VITOR?</span></h2>
+                
+                <p class="about-description">
+                    Com anos de experiência transformando vidas e shapes, meu foco é extrair a sua melhor versão através de treinos baseados em ciência, consistência e alta intensidade.
+                </p>
+                
+                <p class="about-description">
+                    Não trabalhamos com fórmulas mágicas, mas sim com planejamento estratégico individualizado para se adequar à sua rotina, seja nas academias ou no formato online.
+                </p>
+                
+                <div class="about-badges-container">
+                    <div class="info-badge">
+                        <span class="badge-icon">🎓</span>
+                        <span class="badge-text">Graduado em Educação Física - UNIP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-image-wrapper">
+                <div class="about-image-box">
+                    <img src="img/joaovitor.jpeg" alt="João Personal" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contato" class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-brand">
+                <h2 class="footer-logo">JOÃO <span class="destaque">PERSONAL</span></h2>
+                <p class="footer-slogan">Construindo corpos fortes e mentes indestrutíveis.</p>
+            </div>
+
+            <div class="footer-socials">
+                <h3 class="socials-title">REDES SOCIAIS</h3>
+                <ul class="socials-list">
+                    <li>
+                        <a href="https://www.instagram.com/personal_joaov/" target="_blank" rel="noopener noreferrer" class="social-link insta">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-link tiktok">
+                            <i class="fab fa-tiktok"></i> TikTok
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/5517991701540" target="_blank" rel="noopener noreferrer" class="social-link whats">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 João Personal. Todos os direitos reservados. Desenvolvido com foco em Resultados.</p>
+        </div>
+    </footer>
+
+<script>
+// ============================================================
+// 1. CONTROLE DO CARROSSEL DE RESULTADOS (FADE SUAVE)
+// ============================================================
+function mudarSlide(index) {
+    const paginas = document.querySelectorAll('.results-page');
+    const bolinhas = document.querySelectorAll('.dot');
+    
+    paginas.forEach((pag, i) => {
+        if(i === index) {
+            pag.style.display = 'flex'; 
+            setTimeout(() => {
+                pag.classList.add('active');
+            }, 10);
+            bolinhas[i].classList.add('active');
+        } else {
+            pag.classList.remove('active');
+            bolinhas[i].classList.remove('active');
+            setTimeout(() => {
+                if(!pag.classList.contains('active')) pag.style.display = 'none';
+            }, 400);
+        }
+    });
+}
+
+// ============================================================
+// 2. CONTROLE DO MENU HAMBÚRGUER MOBILE
+// ============================================================
+const menuToggle = document.getElementById('menu-toggle');
+const navbar = document.getElementById('navbar');
+const navLinks = document.querySelectorAll('.navbar a');
+
+menuToggle.addEventListener('click', () => {
+    navbar.classList.toggle('active');
+    menuToggle.innerHTML = navbar.classList.contains('active') ? '✕' : '☰';
+});
+
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navbar.classList.remove('active');
+        menuToggle.innerHTML = '☰';
+    });
+});
+
+// ============================================================
+// 3. EFEITO REVEAL (SURGIMENTO SUAVE AO ROLAR A PÁGINA)
+// ============================================================
+const revealElements = document.querySelectorAll('.service-card, .results-subtitle, .results-title, .results-container-wrapper, .about-text-content, .about-image-wrapper');
+
+const observerOptions = {
+    root: null,
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+revealElements.forEach(element => {
+    element.classList.add('reveal-init');
+    revealObserver.observe(element);
+});
+
+// ============================================================
+// 4. EXIBIÇÃO INTELIGENTE DA SETA AO ROLAR A PÁGINA
+// ============================================================
+const backToTopBtn = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+});
+
+// ============================================================
+// 5. EFEITO PARALLAX INTERATIVO MOUSE (APENAS DESKTOP)
+// ============================================================
+if (window.innerWidth > 768) {
+    const aboutImgBox = document.querySelector('.about-image-box');
+    const aboutSection = document.querySelector('.about-section');
+
+    if (aboutSection && aboutImgBox) {
+        aboutSection.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = aboutSection.getBoundingClientRect();
+            const x = (clientX - left) - width / 2;
+            const y = (clientY - top) - height / 2;
+            aboutImgBox.style.transform = `translate(${x * 0.03}px, ${y * 0.03}px)`;
+        });
+
+        aboutSection.addEventListener('mouseleave', () => {
+            aboutImgBox.style.transform = 'translate(0px, 0px)';
+        });
+    }
+}
+
+// ============================================================
+// 6. FUNÇÃO DE ROLAGEM SUAVE CONTROLADA (PERCORRE O SITE INTEIRO)
+// ============================================================
+function rolarParaPosicao(posicaoAlvo, duracao) {
+    const posicaoInicial = window.pageYOffset;
+    const distancia = posicaoAlvo - posicaoInicial;
+    let tempoInicial = null;
+
+    function animacao(tempoAtual) {
+        if (tempoInicial === null) tempoInicial = tempoAtual;
+        const tempoDecorrido = tempoAtual - tempoInicial;
+        const progresso = Math.min(tempoDecorrido / duracao, 1);
+
+        // Algoritmo Cubic Easing para desaceleração suave premium
+        const progressoSuave = progresso < 0.5 
+            ? 4 * progresso * progresso * progresso 
+            : (progresso - 1) * (2 * progresso - 2) * (2 * progresso - 2) + 1;
+
+        window.scrollTo(0, posicaoInicial + (distancia * progressoSuave));
+
+        if (tempoDecorrido < duracao) {
+            requestAnimationFrame(animacao);
+        }
+    }
+    requestAnimationFrame(animacao);
+}
+
+// Evento do Botão Voltar ao Topo
+if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        rolarParaPosicao(0, 1200); // 1.2 segundos viajando suavemente até o topo
+    });
+}
+
+// Evento dos Links do Menu (Navbar)
+const linksMenu = document.querySelectorAll('.navbar a[href^="#"]');
+linksMenu.forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const idSecao = this.getAttribute('href');
+        const secaoAlvo = document.querySelector(idSecao);
+
+        if (secaoAlvo) {
+            const topoNavbar = 70; // Desconto da sua barra fixa para não cobrir títulos
+            const posicaoFinal = secaoAlvo.offsetTop - topoNavbar;
+            rolarParaPosicao(posicaoFinal, 1000); // 1 segundo de transição contínua
+        }
+    });
+});
+</script>
+    
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+</body>
+</html>

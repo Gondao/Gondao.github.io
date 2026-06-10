@@ -696,19 +696,38 @@ body::before {
     border-color: #ffffff;
 }
 
+/* 1. Garante que o fundo seja sólido para o Safari */
 .shadowbox.active {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.744); /* Aumentei um pouco a opacidade */
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    z-index: 9998; /* Abaixo do card destacado */
+    background: rgba(0, 0, 0, 0.9); /* Cor sólida em vez de blur */
+    z-index: 9998;
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+
+.result-card.destacado {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw !important;
+    max-height: 80vh !important;
+    z-index: 9999 !important; /* O mais alto de todos */
+    background: transparent !important;
+    border: 2px solid #13c4ff !important;
+}
+
+.result-card.destacado img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    opacity: 1 !important; /* Safari às vezes esconde imagens com opacidade reduzida */
 }
 
 .result-card.destacado {

@@ -184,9 +184,9 @@ window.mudarSlide = function() {};
 document.addEventListener('DOMContentLoaded', () => {
 
     // ============================================================
-    // SELEÇÃO DE ELEMENTOS DO DOM
+    // 1. SELEÇÃO DE ELEMENTOS DO DOM
     // ============================================================
-    const slider = document.getElementById('results-slider'); // AQUI ESTÁ O SEGREDO: Mirando no elemento certo
+    const slider = document.querySelector('.results-container-wrapper'); // Corrigido para a classe correta
     const paginas = document.querySelectorAll('.results-page');
     const bolinhas = document.querySelectorAll('.dot');
     const menuToggle = document.getElementById('menu-toggle');
@@ -199,65 +199,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let estaArrastando = false;
 
     // ============================================================
-    // CARROSSEL: SINCRONIZAÇÃO PERFEITA NO ARRASTAR E NO CLIQUE
+    // 2. CARROSSEL UNIFICADO (RESOLVE CONFLITO NO SAFARI)
     // ============================================================
-    
-    // 1. Atualiza as bolinhas automaticamente quando o usuário arrasta a tela (Swipe)
     if (slider) {
         slider.addEventListener('scroll', () => {
-            // Calcula a largura exata de 1 slide na tela do celular/PC do usuário
-            const larguraSlide = slider.clientWidth;
+            const larguraSlide = slider.clientWidth || slider.offsetWidth;
             if (larguraSlide === 0) return;
 
-            // Math.round divide a posição do scroll pela largura, descobrindo exatamente qual slide está no centro
             const indexAtivo = Math.round(slider.scrollLeft / larguraSlide);
 
-            // Atualiza as classes 'active' das páginas e das bolinhas
             paginas.forEach((pag, i) => pag.classList.toggle('active', i === indexAtivo));
             bolinhas.forEach((dot, i) => dot.classList.toggle('active', i === indexAtivo));
-        });
-
-        // Controle para evitar que clique num card enquanto o usuário apenas queria arrastar
-        slider.addEventListener('touchmove', () => {
-            estaArrastando = true;
         }, { passive: true });
 
-        slider.addEventListener('touchend', () => {
-            setTimeout(() => { estaArrastando = false; }, 80);
-        }, { passive: true });
+        slider.addEventListener('touchmove', () => { estaArrastando = true; }, { passive: true });
+        slider.addEventListener('touchend', () => { setTimeout(() => { estaArrastando = false; }, 80); }, { passive: true });
     }
 
-    // 2. Ação de clicar na bolinha para ir até o slide
     window.mudarSlide = function(index) {
         if (slider) {
-            const larguraSlide = slider.clientWidth;
-            slider.scrollTo({
-                left: index * larguraSlide,
-                behavior: 'smooth'
-            });
+            const larguraSlide = slider.clientWidth || slider.offsetWidth;
+            slider.scrollTo({ left: index * larguraSlide, behavior: 'smooth' });
         }
     };
 
     // ============================================================
-    // MENU HAMBÚRGUER MOBILE
+    // 3. MENU E LIGHTBOX
     // ============================================================
     if (menuToggle && navbar) {
         menuToggle.addEventListener('click', () => {
             navbar.classList.toggle('active');
             menuToggle.innerHTML = navbar.classList.contains('active') ? '✕' : '☰';
         });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navbar.classList.remove('active');
-                menuToggle.innerHTML = '☰';
-            });
-        });
     }
 
-    // ============================================================
-    // LIGHTBOX (EFEITO AMPLIAR CARD DE RESULTADO)
-    // ============================================================
     function fecharDestaque() {
         const cardAtivo = document.querySelector('.result-card.destacado');
         if (cardAtivo) cardAtivo.classList.remove('destacado');
@@ -267,50 +242,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cardsResultados && shadowBox) {
         cardsResultados.forEach(card => {
             card.addEventListener('click', (e) => {
-                // Impede de abrir se o usuário estiver apenas deslizando a tela para o lado
                 if (estaArrastando) return;
-
                 e.stopPropagation();
-                if (card.classList.contains('destacado')) return;
-
+                
                 fecharDestaque();
                 card.classList.add('destacado');
                 shadowBox.classList.add('active');
+
+                // Truque para o Safari redesenhar a imagem
+                card.style.display = 'none';
+                void card.offsetWidth; 
+                card.style.display = 'block';
             });
         });
-
         shadowBox.addEventListener('click', fecharDestaque);
     }
-
-    // ============================================================
-    // INTELLIGENT REVEAL ON SCROLL (ANIMAÇÃO SUAVE AO ROLAR A TELA)
-    // ============================================================
-    const revealElements = document.querySelectorAll('.service-card, .results-subtitle, .results-title, .results-container-wrapper, .about-text-content, .about-image-wrapper');
-
-    if ('IntersectionObserver' in window) {
-        const observerOptions = {
-            root: null,
-            threshold: 0.12,
-            rootMargin: "0px 0px -20px 0px"
-        };
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        revealElements.forEach(element => {
-            element.classList.add('reveal-init');
-            revealObserver.observe(element);
-        });
-    } else {
-        revealElements.forEach(el => el.classList.add('revealed'));
-    }
-
     // ============================================================
     // PARALLAX DO MOUSE NA FOTO DO SOBRE (APENAS PC)
     // ============================================================

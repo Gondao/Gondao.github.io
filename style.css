@@ -647,7 +647,6 @@ body::before {
 }
 
 .social-link.insta:hover { color: #e1306c; text-shadow: 0 0 10px rgba(225, 48, 108, 0.5); transform: translateX(5px); }
-.social-link.tiktok:hover { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); transform: translateX(5px); }
 .social-link.whats:hover { color: #25d366; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); transform: translateX(5px); }
 
 .footer-bottom {
@@ -703,29 +702,34 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
-    z-index: 1500;
-    display: block;
+    background: rgba(0, 0, 0, 0.744); /* Aumentei um pouco a opacidade */
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 9998; /* Abaixo do card destacado */
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .result-card.destacado {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1) !important;
-    max-width: 90vw;
-    max-height: 80vh;
-    height: auto;
-    z-index: 1501;
-    box-shadow: 0 0 50px rgba(19, 196, 255, 0.6);
-    border-color: #13c4ff;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw !important; /* Força o tamanho */
+    max-height: 80vh !important;
+    z-index: 9999 !important; /* Sempre acima do fundo preto */
+    border: 2px solid #13c4ff !important;
+    box-shadow: 0 0 50px rgba(19, 196, 255, 0.6) !important;
     cursor: zoom-out;
+    background: transparent !important;
 }
 
 .result-card.destacado img {
-    object-fit: contain;
-    max-height: 80vh;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
 }
 
 /* ============================================================

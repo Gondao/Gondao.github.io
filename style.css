@@ -17,15 +17,12 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-
-
     background: 
         radial-gradient(ellipse 100% 100% at 50% 55%, rgba(0, 0, 0, 0.564) 100vh, transparent 100%),
         url(img/backgroundbody.png);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-
     filter: blur(1.3px);
 }
 
@@ -124,14 +121,9 @@ body::before {
     transform: scale(1.05) translateY(-2px);
 }
 
-
 .nav a:active {
     cursor: grabbing;
     transform: scale(0.95);
-}
-
-.nav a:active::after {
-    width: 0%;
 }
 
 .menu {
@@ -230,7 +222,6 @@ body::before {
     position: absolute;
     bottom: -150px; 
     left: 0;
-    z-index: -10;
     width: 100%;
     height: 60px; 
     display: flex;
@@ -243,7 +234,6 @@ body::before {
     z-index: -1;
 }
 
-    
 /* ============================================================
    6. SEÇÃO SERVIÇOS 
    ============================================================ */
@@ -253,7 +243,7 @@ body::before {
     background: transparent;
 }
 
-.service-card.featured1 {
+.service-card.featured1, .service-card.featured2 {
     display: inline-block;
     width: 100%;
     max-width: 360px;
@@ -261,45 +251,22 @@ body::before {
     border: 2px solid #ffffff;
     border-radius: 16px;
     padding: 30px 30px 40px 30px;
-    margin: 15px auto;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 15px 100px;
     box-sizing: border-box;
     text-align: center;
     position: relative;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 30px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 200, 255, 0.1);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
-}
-
-.service-card.featured2 {
-    display: inline-block;
-    width: 100%;
-    max-width: 360px;
-    background: rgba(10, 20, 80, 0.45);
-    border: 2px solid #ffffff;
-    border-radius: 16px;
-    padding: 30px 30px 40px 30px;
-    margin: 15px auto;
-    margin-left: 100px;
-    margin-right: 100px;
-    box-sizing: border-box;
-    text-align: center;
-    position: relative;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 200, 255, 0.1);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .service-card.featured1:hover {
-
     transform: scale(1.07) translateX(57px);
     box-shadow: 0 0 0px rgba(183, 239, 255, 0.26), inset 0 0 15px rgba(0, 200, 255, 0.1);
     border-color: #0044ff;
 }
 
 .service-card.featured2:hover {
-
     transform: scale(1.07) translateX(-57px);
     box-shadow: 0 0 0px rgba(183, 239, 255, 0.26), inset 0 0 15px rgba(0, 200, 255, 0.1);
     border-color: #0044ff;
@@ -352,7 +319,7 @@ body::before {
 }
 
 /* ============================================================
-   6.1 SEÇÃO RESULTADOS (CASES DE SUCESSO - TOTALMENTE CORRIGIDO)
+   6.1 SEÇÃO RESULTADOS
    ============================================================ */
 .results-section {
     padding: 60px 20px;
@@ -381,69 +348,59 @@ body::before {
     text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
 }
 
-
 .results-container-wrapper {
     max-width: 800px; 
     margin: 0 auto;
     position: relative;
-    min-height: 340px; 
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+.results-container-wrapper::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
 .results-grid {
-    position: relative;
+    display: flex;
     width: 100%;
 }
 
 .results-page {
-    display: none; 
+    display: flex !important;
+    flex: 0 0 100%; 
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-}
-
-
-.results-page.active {
-    display: flex !important; 
-    opacity: 1;
+    gap: 15px; 
+    scroll-snap-align: start;
 }
 
 .result-card {
     flex: 1;
-    min-width: 140px;
+    min-width: 135px;
     max-width: 280px;
-    
-    
-    height: 380px;            
-    display: flex;
-    justify-content: center;
-    align-items: center;      
-    
+    height: auto; 
+    aspect-ratio: 3 / 4; 
     border-radius: 12px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.5); 
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.158); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.098);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
 }
 
 .result-card img {
     width: 100%;
-    height: 100%;             
-    
-    object-fit: cover;        
-    object-position: center top; 
-    
-    display: block;
-}
-
-.result-card img {
-    width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;            
     object-fit: contain; 
+    display: block;
 }
 
 .result-card:hover {
@@ -476,13 +433,8 @@ body::before {
     box-shadow: 0 0 12px #13c4ff;
 }
 
-.dot:hover {
-    background: #ffffff;
-}
-
-
 /* ============================================================
-   7 SEÇÃO SOBRE
+   7. SEÇÃO SOBRE
    ============================================================ */
 .about-section {
     padding: 120px 5%;
@@ -502,7 +454,7 @@ body::before {
     align-items: center;
     justify-content: space-between;
     max-width: 1200px;
-    margin-top: px;
+    margin: 0 auto;
     gap: 50px;
 }
 
@@ -535,7 +487,6 @@ body::before {
     max-width: 90%;
 }
 
-
 .about-badges-container {
     display: flex; 
     gap: 15px;
@@ -552,11 +503,6 @@ body::before {
     padding: 12px 25px;
     backdrop-filter: blur(5px);
     transition: all 0.3s ease;
-}
-
-
-.badge-icon {
-    font-size: 1.2rem;
 }
 
 .badge-text {
@@ -700,23 +646,9 @@ body::before {
     text-align: center;
 }
 
-.social-link.insta:hover {
-    color: #e1306c;
-    text-shadow: 0 0 10px rgba(225, 48, 108, 0.5);
-    transform: translateX(5px);
-}
-
-.social-link.tiktok:hover {
-    color: #00f2fe;
-    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-    transform: translateX(5px);
-}
-
-.social-link.whats:hover {
-    color: #25d366;
-    text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
-    transform: translateX(5px);
-}
+.social-link.insta:hover { color: #e1306c; text-shadow: 0 0 10px rgba(225, 48, 108, 0.5); transform: translateX(5px); }
+.social-link.tiktok:hover { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); transform: translateX(5px); }
+.social-link.whats:hover { color: #25d366; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); transform: translateX(5px); }
 
 .footer-bottom {
     max-width: 1200px;
@@ -733,7 +665,7 @@ body::before {
 }
 
 /* ============================================================
-   9. BOTÃO VOLTAR AO TOPO (SEMPRE VISÍVEL)
+   9. EFEITO LIGHTBOX E BACK-TO-TOP
    ============================================================ */
 .back-to-top {
     position: fixed;
@@ -750,13 +682,12 @@ body::before {
     align-items: center;
     font-size: 18px;
     text-decoration: none;
-    z-index: 9999;
+    z-index: 1001; /* Corrigido para ficar abaixo do lightbox */
     cursor: pointer;
     backdrop-filter: blur(5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
 
 .back-to-top:hover {
     background: #13c4ff;
@@ -766,25 +697,77 @@ body::before {
     border-color: #ffffff;
 }
 
+.shadowbox.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 1500;
+    display: block;
+}
+
+.result-card.destacado {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1) !important;
+    max-width: 90vw;
+    max-height: 80vh;
+    height: auto;
+    z-index: 1501;
+    box-shadow: 0 0 50px rgba(19, 196, 255, 0.6);
+    border-color: #13c4ff;
+    cursor: zoom-out;
+}
+
+.result-card.destacado img {
+    object-fit: contain;
+    max-height: 80vh;
+}
+
 /* ============================================================
-   10. RESPONSIVIDADE COMPLETA (CELULAR & TABLET)
+   10. RESPONSIVIDADE COMPLETA
    ============================================================ */
+
+/* 10.1 COMPATIBILIDADE DE MOTORES */
+.nav, .divpag1, .info-badge, .back-to-top {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+    body::before { background-attachment: scroll !important; }
+}
+
+.service-card, .result-card, .about-image-box, .btn-cta {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+/* 10.2 DIRETRIZES PARA TABLETS (ATÉ 992px) */
+@media (max-width: 992px) {
+    .imgjv img { left: 10%; width: 80%; top: 5%; }
+    .homeT { font-size: 3.5rem; letter-spacing: 4px; }
+    .service-card.featured1:hover, .service-card.featured2:hover { transform: scale(1.02) !important; }
+    .about-container { flex-direction: column; text-align: center; gap: 30px; }
+    .about-text-content { text-align: center; }
+    .about-description { max-width: 100%; }
+    .about-badges-container { justify-content: center; }
+    .about-image-wrapper { justify-content: center; width: 100%; }
+    .about-image-box { max-width: 320px; }
+    .divpag1 { margin-bottom: 60px; }
+    .services { margin-top: 90px; }
+}
+
+/* 10.3 DIRETRIZES PARA SMARTPHONES (ATÉ 768px) */
 @media (max-width: 768px) {
-    body {
-        padding-top: 70px;
-    }
-
-
-    .imgjv img {
-        display: none; /* Ocultado no mobile para não quebrar texto, ou pode reduzir: */
-        /* left: 10%; width: 80%; top: 10%; opacity: 0.3; */
-    }
-
-
-    .menu {
-        display: block; 
-    }
-
+    body { padding-top: 70px; }
+    .imgjv img { display: none; }
+    .menu { display: block !important; }
+    
     .navbar {
         position: fixed;
         top: 70px;
@@ -792,239 +775,15 @@ body::before {
         width: 100%;
         height: calc(100vh - 70px);
         background: rgba(3, 8, 30, 0.98);
+        -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         z-index: 999;
     }
 
-    .navbar.active {
-        left: 0;
-    }
-
-    .nav ul {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        gap: 40px;
-        font-size: 22px;
-    }
-
-
-    .divpag1{
-        margin-bottom: 100px;
-    }
-    .homeT {
-        font-size: 2.8rem;
-        letter-spacing: 3px;
-        line-height: 1.2;
-    }
-
-    .btn-cta {
-        margin-top: 50px;
-        padding: 15px 40px;
-        font-size: 16px;
-    }
-
-    .services {
-        padding: 80px 20px;
-    }
-
-    .service-card.featured1, 
-    .service-card.featured2 {
-        margin: 20px auto;
-        max-width: 100%;
-    }
-
-    .service-card.featured1:hover,
-    .service-card.featured2:hover {
-        transform: scale(1.02); 
-    }
-
-    .card-title {
-        font-size: 2rem;
-    }
-
-
-    .results-title {
-        font-size: 2.5rem;
-    }
-
-    .results-page {
-        gap: 15px;
-    }
-
-    .result-card {
-        height: 320px; 
-    }
-
-
-    .about-section {
-        padding: 60px 20px;
-    }
-
-    .about-container {
-        flex-direction: column-reverse; 
-        gap: 40px;
-    }
-
-    .about-title {
-        font-size: 2.3rem;
-        text-align: center;
-    }
-
-    .about-description {
-        max-width: 100%;
-        font-size: 1rem;
-        text-align: center;
-    }
-
-    .about-badges-container {
-        justify-content: center;
-    }
-
-    .info-badge {
-        padding: 10px 20px;
-    }
-
-    .about-image-wrapper {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .about-image-box {
-        max-width: 300px;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-
-    .footer-brand, .footer-socials {
-        width: 100%;
-        text-align: center;
-    }
-
-    .footer-slogan {
-        margin: 0 auto;
-    }
-
-    .social-link {
-        justify-content: center;
-    }
-}
-
-/* ============================================================
-   CORREÇÕES DE COMPATIBILIDADE SAFARI & IOS
-   ============================================================ */
-
-/* O Safari ignora backdrop-filter sem o prefixo -webkit- */
-.nav, .divpag1, .info-badge, .back-to-top {
-    -webkit-backdrop-filter: blur(10px) !important;
-    backdrop-filter: blur(10px) !important;
-}
-
-/* O Safari no iOS quebra com background-attachment: fixed. 
-   Esta regra desabilita o efeito apenas onde ele quebra o layout. */
-@supports (-webkit-touch-callout: none) {
-    body::before {
-        background-attachment: scroll !important;
-    }
-}
-
-/* Correção para evitar bugs de renderização 3D/Z-Index no motor WebKit */
-.service-card, .result-card, .about-image-box, .btn-cta {
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
-}
-
-
-/* ============================================================
-   MEDIA QUERIES - RESPONSIVIDADE PARA TELAS MENORES (ATÉ 992px)
-   ============================================================ */
-@media (max-width: 992px) {
-
-    .imgjv img {
-        left: 10%;
-        width: 80%;
-        top: 5%;
-    }
-
-
-    .homeT {
-        font-size: 3.5rem;
-        letter-spacing: 4px;
-    }
-
-
-    .service-card.featured1:hover, 
-    .service-card.featured2:hover {
-        transform: scale(1.02) !important;
-    }
-
-
-    .about-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-
-    .about-text-content {
-        text-align: center;
-    }
-
-    .about-description {
-        max-width: 100%;
-    }
-
-    .about-badges-container {
-        justify-content: center;
-    }
-
-    .about-image-wrapper {
-        justify-content: center;
-        width: 100%;
-    }
+    .navbar.active { left: 0; }
     
-    .about-image-box {
-        max-width: 320px;
-    }
-}
-
-/* ============================================================
-   MEDIA QUERIES - CELULARES (ATÉ 768px)
-   ============================================================ */
-@media (max-width: 768px) {
-    body {
-        padding-top: 70px;
-    }
-
-
-    .menu {
-        display: block !important;
-    }
-
-
-    .navbar {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background: rgba(0, 15, 60, 0.95);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-        transition: left 0.4s ease;
-    }
-
-
-    .navbar.active {
-        left: 0;
-    }
-
-    .navbar ul {
+    .navbar ul, .nav ul {
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -1033,39 +792,83 @@ body::before {
         font-size: 20px;
     }
 
+    .divpag1 { margin-bottom: 10px; }
+    .home-section { margin-top: 50px; }
+    .homeT { font-size: 2.8rem; letter-spacing: 3px; line-height: 1.2; }
+    .btn-cta { margin-bottom: 40px; margin-top: 50px; padding: 15px 40px; font-size: 16px; }
+    .services { margin-top: 100px; padding: 80px 20px; }
+    .service-card.featured1, .service-card.featured2 { margin: 20px auto !important; max-width: 100%; display: block; }
+    .service-card.featured1:hover, .service-card.featured2:hover { transform: scale(1.02); }
+    .card-title { font-size: 2rem; }
+    .about-section { padding: 60px 20px; }
+    .about-container { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+    .about-title { font-size: 2.3rem; text-align: center; }
+    .about-description { max-width: 100%; font-size: 1rem; text-align: center; }
+    .about-badges-container { justify-content: center; }
+    .info-badge { padding: 10px 20px; }
+    .about-image-wrapper { justify-content: center; width: 100%; margin-top: 50px; }
+    .about-image-box { max-width: 300px; }
+    .footer-container { flex-direction: column; text-align: center; gap: 40px; }
+    .footer-brand, .footer-socials { width: 100%; text-align: center; }
+    .footer-slogan { margin: 0 auto; }
+    .socials-list, .social-link { justify-content: center; align-items: center; }
+    .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
 
-    .service-card.featured1, 
-    .service-card.featured2 {
-        margin: 20px auto !important;
-        max-width: 100%;
-        display: block;
-    }
-
-
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-
-    .footer-brand, .footer-socials {
-        text-align: center;
-        width: 100%;
-    }
-
-    .footer-slogan {
-        margin: 0 auto;
-    }
-
-    .socials-list {
-        align-items: center;
-    }
+    /* Resultados no Mobile */
+    .results-section { padding: 60px 0; overflow-x: hidden; }
+    .results-subtitle { font-size: 0.8rem; padding: 0 20px; }
+    .results-title { font-size: 2.5rem; margin-bottom: 25px; padding: 0 20px; }
     
-
-    .back-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
+    .results-container-wrapper {
+        width: 100vw; 
+        margin-left: -20px; /* Corrigido de -25px para evitar overflow lateral */
+        padding: 0; 
     }
+
+    .results-grid {
+        display: flex;
+        width: 100%;
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .results-page {
+        display: flex !important;
+        flex: 0 0 100vw; 
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        gap: 15px; 
+        box-sizing: border-box;
+        padding: 0 20px; 
+        scroll-snap-align: start;
+        opacity: 1 !important; 
+    }
+
+    .result-card {
+        flex: 1; 
+        min-width: 0; 
+        max-width: calc(50% - 7.5px); 
+        height: auto;
+        aspect-ratio: 3 / 4; 
+    }
+
+    .result-card img {
+        width: 100%; /* Corrigido para preencher o container */
+        height: 100%;
+        object-fit:scale-down; 
+    }
+
+    .results-dots { width: 100%; padding: 0 20px; box-sizing: border-box; }
+    
+    .result-card.destacado { width: 92vw !important; max-height: 80vh !important; }
+    .result-card.destacado img { max-height: 80vh !important; object-fit: contain !important; }
+}
+
+/* 10.4 COMPACTAÇÃO ADICIONAL (ATÉ 380px) */
+@media (max-width: 380px) {
+    .results-page { gap: 10px; }
+    .result-card { max-width: calc(50% - 5px); }
+    .homeT { font-size: 2.3rem; }
 }

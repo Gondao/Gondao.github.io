@@ -55,7 +55,7 @@
 
     <section id="servicos" class="services">
         <div class="service-card featured1">
-            <div class="card-icon">🏢</div>
+            <div class="card-icon">🏋️</div>
             <h3 class="card-title">PERSONAL<br>PRESENCIAL</h3>
             <p class="card-description">
                Acompanhamento presencial e exclusivo. Treinos individuais e sob medida para a sua rotina, com foco total na execução correta, segurança e máxima eficiência. O caminho ideal para a sua saúde, emagrecimento ou hipertrofia, com quem te orienta lado a lado. 
@@ -163,11 +163,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-link tiktok">
-                            <i class="fab fa-tiktok"></i> TikTok
-                        </a>
-                    </li>
-                    <li>
                         <a href="https://wa.me/5517991701540" target="_blank" rel="noopener noreferrer" class="social-link whats">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
@@ -183,157 +178,240 @@
     </footer>
 
 <script>
-// ============================================================
-// 1. CONTROLE DO CARROSSEL DE RESULTADOS (FADE SUAVE)
-// ============================================================
-function mudarSlide(index) {
+// Blinda a função no escopo global
+window.mudarSlide = function() {};
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ============================================================
+    // SELEÇÃO DE ELEMENTOS DO DOM
+    // ============================================================
+    const slider = document.getElementById('results-slider'); // AQUI ESTÁ O SEGREDO: Mirando no elemento certo
     const paginas = document.querySelectorAll('.results-page');
     const bolinhas = document.querySelectorAll('.dot');
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.navbar a');
+    const cardsResultados = document.querySelectorAll('.result-card');
+    const shadowBox = document.querySelector('.shadowbox');
+    const backToTopBtn = document.querySelector('.back-to-top');
+
+    let estaArrastando = false;
+
+    // ============================================================
+    // CARROSSEL: SINCRONIZAÇÃO PERFEITA NO ARRASTAR E NO CLIQUE
+    // ============================================================
     
-    paginas.forEach((pag, i) => {
-        if(i === index) {
-            pag.style.display = 'flex'; 
-            setTimeout(() => {
-                pag.classList.add('active');
-            }, 10);
-            bolinhas[i].classList.add('active');
-        } else {
-            pag.classList.remove('active');
-            bolinhas[i].classList.remove('active');
-            setTimeout(() => {
-                if(!pag.classList.contains('active')) pag.style.display = 'none';
-            }, 400);
+    // 1. Atualiza as bolinhas automaticamente quando o usuário arrasta a tela (Swipe)
+    if (slider) {
+        slider.addEventListener('scroll', () => {
+            // Calcula a largura exata de 1 slide na tela do celular/PC do usuário
+            const larguraSlide = slider.clientWidth;
+            if (larguraSlide === 0) return;
+
+            // Math.round divide a posição do scroll pela largura, descobrindo exatamente qual slide está no centro
+            const indexAtivo = Math.round(slider.scrollLeft / larguraSlide);
+
+            // Atualiza as classes 'active' das páginas e das bolinhas
+            paginas.forEach((pag, i) => pag.classList.toggle('active', i === indexAtivo));
+            bolinhas.forEach((dot, i) => dot.classList.toggle('active', i === indexAtivo));
+        });
+
+        // Controle para evitar que clique num card enquanto o usuário apenas queria arrastar
+        slider.addEventListener('touchmove', () => {
+            estaArrastando = true;
+        }, { passive: true });
+
+        slider.addEventListener('touchend', () => {
+            setTimeout(() => { estaArrastando = false; }, 80);
+        }, { passive: true });
+    }
+
+    // 2. Ação de clicar na bolinha para ir até o slide
+    window.mudarSlide = function(index) {
+        if (slider) {
+            const larguraSlide = slider.clientWidth;
+            slider.scrollTo({
+                left: index * larguraSlide,
+                behavior: 'smooth'
+            });
         }
-    });
-}
+    };
 
-// ============================================================
-// 2. CONTROLE DO MENU HAMBÚRGUER MOBILE
-// ============================================================
-const menuToggle = document.getElementById('menu-toggle');
-const navbar = document.getElementById('navbar');
-const navLinks = document.querySelectorAll('.navbar a');
+    // ============================================================
+    // MENU HAMBÚRGUER MOBILE
+    // ============================================================
+    if (menuToggle && navbar) {
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            menuToggle.innerHTML = navbar.classList.contains('active') ? '✕' : '☰';
+        });
 
-menuToggle.addEventListener('click', () => {
-    navbar.classList.toggle('active');
-    menuToggle.innerHTML = navbar.classList.contains('active') ? '✕' : '☰';
-});
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                menuToggle.innerHTML = '☰';
+            });
+        });
+    }
 
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navbar.classList.remove('active');
-        menuToggle.innerHTML = '☰';
-    });
-});
+    // ============================================================
+    // LIGHTBOX (EFEITO AMPLIAR CARD DE RESULTADO)
+    // ============================================================
+    function fecharDestaque() {
+        const cardAtivo = document.querySelector('.result-card.destacado');
+        if (cardAtivo) cardAtivo.classList.remove('destacado');
+        if (shadowBox) shadowBox.classList.remove('active');
+    }
 
-// ============================================================
-// 3. EFEITO REVEAL (SURGIMENTO SUAVE AO ROLAR A PÁGINA)
-// ============================================================
-const revealElements = document.querySelectorAll('.service-card, .results-subtitle, .results-title, .results-container-wrapper, .about-text-content, .about-image-wrapper');
+    if (cardsResultados && shadowBox) {
+        cardsResultados.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Impede de abrir se o usuário estiver apenas deslizando a tela para o lado
+                if (estaArrastando) return;
 
-const observerOptions = {
-    root: null,
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
-};
+                e.stopPropagation();
+                if (card.classList.contains('destacado')) return;
 
-const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
+                fecharDestaque();
+                card.classList.add('destacado');
+                shadowBox.classList.add('active');
+            });
+        });
 
-revealElements.forEach(element => {
-    element.classList.add('reveal-init');
-    revealObserver.observe(element);
-});
+        shadowBox.addEventListener('click', fecharDestaque);
+    }
 
-// ============================================================
-// 4. EXIBIÇÃO INTELIGENTE DA SETA AO ROLAR A PÁGINA
-// ============================================================
-const backToTopBtn = document.getElementById('back-to-top');
+    // ============================================================
+    // INTELLIGENT REVEAL ON SCROLL (ANIMAÇÃO SUAVE AO ROLAR A TELA)
+    // ============================================================
+    const revealElements = document.querySelectorAll('.service-card, .results-subtitle, .results-title, .results-container-wrapper, .about-text-content, .about-image-wrapper');
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-        backToTopBtn.classList.add('visible');
+    if ('IntersectionObserver' in window) {
+        const observerOptions = {
+            root: null,
+            threshold: 0.12,
+            rootMargin: "0px 0px -20px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(element => {
+            element.classList.add('reveal-init');
+            revealObserver.observe(element);
+        });
     } else {
-        backToTopBtn.classList.remove('visible');
+        revealElements.forEach(el => el.classList.add('revealed'));
     }
+
+    // ============================================================
+    // PARALLAX DO MOUSE NA FOTO DO SOBRE (APENAS PC)
+    // ============================================================
+    if (window.innerWidth > 768) {
+        const aboutImgBox = document.querySelector('.about-image-box');
+        const aboutSection = document.querySelector('.about-section');
+
+        if (aboutSection && aboutImgBox) {
+            aboutSection.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { left, top, width, height } = aboutSection.getBoundingClientRect();
+                const x = (clientX - left) - width / 2;
+                const y = (clientY - top) - height / 2;
+                aboutImgBox.style.transform = `translate(${x * 0.02}px, ${y * 0.02}px)`;
+            });
+
+            aboutSection.addEventListener('mouseleave', () => {
+                aboutImgBox.style.transform = 'translate(0px, 0px)';
+            });
+        }
+    }
+
+    // ============================================================
+    // SISTEMA DE ROLAGEM SUAVE CONTROLADA (NAVEGAÇÃO INTERNA)
+    // ============================================================
+    function rolarParaPosicao(posicaoAlvo, duracao) {
+        const posicaoInicial = window.pageYOffset || document.documentElement.scrollTop;
+        const distancia = posicaoAlvo - posicaoInicial;
+        let tempoInicial = null;
+
+        function animacao(tempoAtual) {
+            if (tempoInicial === null) tempoInicial = tempoAtual;
+            const tempoDecorrido = tempoAtual - tempoInicial;
+            const progresso = Math.min(tempoDecorrido / duracao, 1);
+
+            const progressoSuave = progresso < 0.5 
+                ? 4 * progresso * progresso * progresso 
+                : (progresso - 1) * (2 * progresso - 2) * (2 * progresso - 2) + 1;
+
+            window.scrollTo(0, posicaoInicial + (distancia * progressoSuave));
+
+            if (tempoDecorrido < duracao) {
+                requestAnimationFrame(animacao);
+            }
+        }
+        requestAnimationFrame(animacao);
+    }
+
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            rolarParaPosicao(0, 1000);
+        });
+    }
+
+    const linksMenu = document.querySelectorAll('.navbar a[href^="#"]');
+    linksMenu.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const idSecao = this.getAttribute('href');
+            const secaoAlvo = document.querySelector(idSecao);
+
+            if (secaoAlvo) {
+                const topoNavbar = 70;
+                const posicaoFinal = secaoAlvo.offsetTop - topoNavbar;
+                rolarParaPosicao(posicaoFinal, 900);
+            }
+        });
+    });
 });
 
-// ============================================================
-// 5. EFEITO PARALLAX INTERATIVO MOUSE (APENAS DESKTOP)
-// ============================================================
-if (window.innerWidth > 768) {
-    const aboutImgBox = document.querySelector('.about-image-box');
-    const aboutSection = document.querySelector('.about-section');
-
-    if (aboutSection && aboutImgBox) {
-        aboutSection.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = aboutSection.getBoundingClientRect();
-            const x = (clientX - left) - width / 2;
-            const y = (clientY - top) - height / 2;
-            aboutImgBox.style.transform = `translate(${x * 0.03}px, ${y * 0.03}px)`;
-        });
-
-        aboutSection.addEventListener('mouseleave', () => {
-            aboutImgBox.style.transform = 'translate(0px, 0px)';
-        });
-    }
-}
-
-// ============================================================
-// 6. FUNÇÃO DE ROLAGEM SUAVE CONTROLADA (PERCORRE O SITE INTEIRO)
-// ============================================================
-function rolarParaPosicao(posicaoAlvo, duracao) {
-    const posicaoInicial = window.pageYOffset;
-    const distancia = posicaoAlvo - posicaoInicial;
-    let tempoInicial = null;
-
-    function animacao(tempoAtual) {
-        if (tempoInicial === null) tempoInicial = tempoAtual;
-        const tempoDecorrido = tempoAtual - tempoInicial;
-        const progresso = Math.min(tempoDecorrido / duracao, 1);
-
-        // Algoritmo Cubic Easing para desaceleração suave premium
-        const progressoSuave = progresso < 0.5 
-            ? 4 * progresso * progresso * progresso 
-            : (progresso - 1) * (2 * progresso - 2) * (2 * progresso - 2) + 1;
-
-        window.scrollTo(0, posicaoInicial + (distancia * progressoSuave));
-
-        if (tempoDecorrido < duracao) {
-            requestAnimationFrame(animacao);
+document.addEventListener("DOMContentLoaded", function() {
+    const container = document.querySelector('.results-container-wrapper');
+    const dots = document.querySelectorAll('.dot');
+    
+    // Função para atualizar os dots
+    container.addEventListener('scroll', () => {
+        const scrollPosition = container.scrollLeft;
+        const pageWidth = container.offsetWidth;
+        
+        // Calcula qual página está visível
+        const activeIndex = Math.round(scrollPosition / pageWidth);
+        
+        // Remove a classe active de todos os dots
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Adiciona a classe active ao dot correspondente
+        if (dots[activeIndex]) {
+            dots[activeIndex].classList.add('active');
         }
-    }
-    requestAnimationFrame(animacao);
-}
-
-// Evento do Botão Voltar ao Topo
-if (backToTopBtn) {
-    backToTopBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        rolarParaPosicao(0, 1200); // 1.2 segundos viajando suavemente até o topo
     });
-}
 
-// Evento dos Links do Menu (Navbar)
-const linksMenu = document.querySelectorAll('.navbar a[href^="#"]');
-linksMenu.forEach(link => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const idSecao = this.getAttribute('href');
-        const secaoAlvo = document.querySelector(idSecao);
-
-        if (secaoAlvo) {
-            const topoNavbar = 70; // Desconto da sua barra fixa para não cobrir títulos
-            const posicaoFinal = secaoAlvo.offsetTop - topoNavbar;
-            rolarParaPosicao(posicaoFinal, 1000); // 1 segundo de transição contínua
-        }
+    // Opcional: Clique no dot leva à página
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            const scrollAmount = index * container.offsetWidth;
+            container.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
     });
 });
 </script>
